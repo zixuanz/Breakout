@@ -23,3 +23,7 @@ void ElemDisplay:: prepcolorVert(){
 void ElemDisplay:: preptextureVert(){
     //implement it when need it
 }
+
+void ElemDisplay:: keyboardInput(int key, int action){
+    
+}

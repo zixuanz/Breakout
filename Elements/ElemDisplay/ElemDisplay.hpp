@@ -54,7 +54,7 @@ protected:
     //view in window
     glm::mat4 camera = glm::lookAt(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     glm::mat4 ortho = glm::ortho(-1.f, 1.f, -1.f * (GLfloat)MAIN_WINDOW_HEIGHT / (GLfloat)MAIN_WINDOW_WIDTH, 1.f * (GLfloat)MAIN_WINDOW_HEIGHT / (GLfloat)MAIN_WINDOW_WIDTH, 0.1f, 10.0f);
-    glm::mat4 model;
+    glm::mat4 model = glm::mat4(1);
     
 public:
     
@@ -80,7 +80,7 @@ public:
     virtual void render() = 0;
     
     //keyboard input solution
-    virtual void keyboardInput(int key, int action) = 0;
+    virtual void keyboardInput(int key, int action);    //may delete
     
     
 };

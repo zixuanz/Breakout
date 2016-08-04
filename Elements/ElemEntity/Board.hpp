@@ -9,14 +9,14 @@
 #ifndef Board_hpp
 #define Board_hpp
 
-#include <cmath>
 
 #include "GameElem.hpp"
+#include "ElemShift.hpp"
 
 
 class Board : public GameElem{
     
-private:
+protected:
     float speed;
     
 public:
@@ -32,9 +32,8 @@ public:
     float getSpeed();
     
     //board actions
-    void extendBoard(double scale);                 //extend the width of board. Scale > 0.5
-    void shiftBoard(double displacement);
-    bool canShift(double displacement);
+    void extendBoard(float scale);                 //extend the width of board. Scale > 0.5
+
 };
 
 #endif /* Board_hpp */

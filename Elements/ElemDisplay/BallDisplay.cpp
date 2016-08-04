@@ -1,18 +1,18 @@
 //
-//  BoardDisplay.cpp
+//  BallDisplay.cpp
 //  New-Breakout
 //
 //  Created by Zixuan Zhao on 8/3/16.
 //  Copyright © 2016 Zixuan Zhao. All rights reserved.
 //
 
-#include "BoardDisplay.hpp"
+#include "BallDisplay.hpp"
 
-BoardDisplay:: BoardDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp){
+BallDisplay:: BallDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp){
     prepRender(vp, fp, gp);
 }
 
-void BoardDisplay:: prepVertices(){
+void BallDisplay:: prepVertices(){
     
     vertices[0] = -width;
     vertices[1] = -height;
@@ -26,7 +26,7 @@ void BoardDisplay:: prepVertices(){
 }
 
 
-void BoardDisplay:: prepDataArray(){
+void BallDisplay:: prepDataArray(){
     
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &vertexBuffer);
@@ -42,29 +42,29 @@ void BoardDisplay:: prepDataArray(){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(index), index, GL_DYNAMIC_DRAW);
     
-
+    
     
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GL_FLOAT), (GLvoid*)0);
     glEnableVertexAttribArray(0);
     /*
-    glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(textureVert), textureVert, GL_DYNAMIC_DRAW);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GL_FLOAT), (GLvoid*)0);
-    glEnableVertexAttribArray(1);
-    */
+     glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+     glBufferData(GL_ARRAY_BUFFER, sizeof(textureVert), textureVert, GL_DYNAMIC_DRAW);
+     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GL_FLOAT), (GLvoid*)0);
+     glEnableVertexAttribArray(1);
+     */
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     
 }
 
-void BoardDisplay::prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp){
+void BallDisplay::prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp){
     shader = new Shader(vp, fp, gp);
     prepVertices();
     prepDataArray();
     model = glm::translate(model, glm::vec3(0.f, posY, 0.f));
 }
 
-void BoardDisplay:: render(){
+void BallDisplay:: render(){
     
     GLint coor = glGetUniformLocation(shader->Program, "viewCoor");
     shader->runShader();
@@ -74,33 +74,24 @@ void BoardDisplay:: render(){
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);       //unbind
     glUseProgram(0);
-
+    
 }
 
-void BoardDisplay:: keyboardInput(int key, int action){
-    //board motion
-    float dist = ELEM_SHIFT_DIST * getSpeed();
+
+void BallDisplay:: keyboardInput(int key, int action){
+    //ball motion
+    float dist = ELEM_SHIFT_DIST;
     if ((key == GLFW_KEY_LEFT || key == GLFW_KEY_A) && (action == GLFW_REPEAT || action == GLFW_PRESS))
     {
-        ElemShift::shift(model, posX, width, -dist);
-        std::cout<< "board"<<posX<<std::endl;
-        
+        ElemShift::shift(model, posX, ELEM_BOARD_WIDTH, -dist);
+        std::cout<< "ball"<<posX<<std::endl;
     }
     if ((key == GLFW_KEY_RIGHT || key == GLFW_KEY_D) && (action == GLFW_REPEAT || action == GLFW_PRESS))
     {
-        ElemShift::shift(model, posX, width, dist);
-        std::cout<< "board"<<posX<<std::endl;
+        ElemShift::shift(model, posX, ELEM_BOARD_WIDTH, dist);
+        std::cout<< "ball"<<posX<<std::endl;
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

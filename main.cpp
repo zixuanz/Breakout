@@ -18,6 +18,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Elements/ElemDisplay/BoardDisplay.hpp"
+#include "Elements/ElemDisplay/BallDisplay.hpp"
 
 const char *MAIN_WINDOW_TITLE = "Breakout";
 
@@ -25,6 +26,7 @@ const char *MAIN_WINDOW_TITLE = "Breakout";
 GLFWwindow *window;
 
 BoardDisplay *test;
+BallDisplay *test2;
 
 //function signitures
 static void error_callback(int error, const char* description);
@@ -71,7 +73,8 @@ int main(int argc, const char * argv[]) {
     glfwSetKeyCallback(window, key_callback);
     
     test = new BoardDisplay("../../New-Breakout/Shaders/Board.vertex", "../../New-Breakout/Shaders/Board.fragment", NULL);
-    
+    test2 = new BallDisplay("../../New-Breakout/Shaders/Ball.vertex", "../../New-Breakout/Shaders/Ball.fragment", NULL);
+
     
     glViewport(0, 0, MAIN_WINDOW_WIDTH, -MAIN_WINDOW_HEIGHT);
     while (!glfwWindowShouldClose(window))
@@ -83,6 +86,7 @@ int main(int argc, const char * argv[]) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         test->render();
+        test2->render();
         
         glfwSwapBuffers(window);
         
@@ -108,5 +112,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
     test->keyboardInput(key, action);
+    test2->keyboardInput(key, action);
 }
 

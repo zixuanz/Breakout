@@ -42,25 +42,9 @@ float Board::getSpeed()
 }
 
 //extend the width of board
-void Board:: extendBoard(double scale)
+void Board:: extendBoard(float scale)
 {
     this->width = this->width * scale;
-}
-
-//shift the board based on the given displacement
-void Board:: shiftBoard(double displacement)
-{
-    this->posX += displacement;
-}
-
-//check whether we can shift. After shift, whether the borad is in the range or not.
-bool Board:: canShift(double displacement)
-{
-    
-    if (fabs(this->posX + displacement) <= fabs(1 - this->width)) {
-        return true;
-    }
-    return false;
 }
 
 

@@ -1,22 +1,23 @@
 //
-//  BoardDisplay.hpp
+//  BallDisplay.hpp
 //  New-Breakout
 //
 //  Created by Zixuan Zhao on 8/3/16.
 //  Copyright © 2016 Zixuan Zhao. All rights reserved.
 //
 
-#ifndef BoardDisplay_hpp
-#define BoardDisplay_hpp
+#ifndef BallDisplay_hpp
+#define BallDisplay_hpp
 
-#include "../ElemEntity/Board.hpp"
+#include "../ElemEntity/Ball.hpp"
 #include "ElemDisplay.hpp"
 
-class BoardDisplay: public Board, public ElemDisplay{
 
+class BallDisplay: public Ball, public ElemDisplay{
+    
 public:
     
-    BoardDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp);
+    BallDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp);
     
     //prepare buffers for sending data
     void prepVertices();
@@ -29,12 +30,13 @@ public:
     //render
     void render();
     
-    //shift board
+    //shift ball at beginning with board if board is shifting
     void shift(float dist);
 
     //keyboard input solution
     void keyboardInput(int key, int action);    //may delete
-    
+
 };
 
-#endif /* BoardDisplay_hpp */
+
+#endif /* BallDisplay_hpp */
