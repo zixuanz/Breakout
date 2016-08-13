@@ -33,7 +33,6 @@ protected:
     GLuint vertexBuffer;
     GLuint colorBuffer;
     GLuint textureBuffer;
-    GLuint offsetBuffer;
     GLuint EBO;
     
     //vertex info

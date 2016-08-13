@@ -9,7 +9,7 @@
 #ifndef BoardDisplay_hpp
 #define BoardDisplay_hpp
 
-#include "../ElemEntity/Board.hpp"
+#include "Board.hpp"
 #include "ElemDisplay.hpp"
 
 class BoardDisplay: public Board, public ElemDisplay{

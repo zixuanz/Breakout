@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-#include "../DefElemValue.h"
+#include "DefElemValue.h"
 
 class GameElem{
     

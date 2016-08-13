@@ -9,7 +9,7 @@
 #ifndef BallDisplay_hpp
 #define BallDisplay_hpp
 
-#include "../ElemEntity/Ball.hpp"
+#include "Ball.hpp"
 #include "ElemDisplay.hpp"
 
 
