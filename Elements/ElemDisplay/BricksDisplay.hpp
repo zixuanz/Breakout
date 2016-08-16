@@ -15,8 +15,8 @@
 class BricksDisplay: public Brick, public ElemDisplay{
     
 private:
-    int row = 0;
-    int col = 0;
+    GLint row = 0;
+    GLint col = 0;
     glm::vec2 *offset;
     Brick *bricks;
     
@@ -25,7 +25,7 @@ private:
     
 public:
     
-    BricksDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp, int row, int col);
+    BricksDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp, GLint row, GLint col);
     
     //prepare for bricks
     void setBricks();

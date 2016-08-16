@@ -13,15 +13,14 @@
 
 #define GLEW_STATIC
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../../Utils/Shader.hpp"
-const float MAIN_WINDOW_WIDTH = 480;
-const float MAIN_WINDOW_HEIGHT = 640;
+#include "Shader.hpp"
+const GLfloat MAIN_WINDOW_WIDTH = 480;
+const GLfloat MAIN_WINDOW_HEIGHT = 640;
 
 
 class ElemDisplay{
@@ -36,13 +35,13 @@ protected:
     GLuint EBO;
     
     //vertex info
-    float vertices[8];
-    float colorVert[12];
-    float textureVert[8];
-    float normalVert[12];
+    GLfloat vertices[8];
+    GLfloat colorVert[12];
+    GLfloat textureVert[8];
+    GLfloat normalVert[12];
     
     //the index for quard
-    int index[6] = {
+    GLint index[6] = {
         0, 1, 2,
         0, 2, 3
     };
@@ -59,8 +58,9 @@ public:
     
     //encapsulation for neccessary
     
-    float* getVertices();
-    int* getIndex();
+    GLfloat* getVertices();
+    GLint* getIndex();
+    glm::mat4 getModel();
     
     //get input methods
     //void updateKeyboard(int key, int action);
@@ -77,9 +77,6 @@ public:
     
     //render
     virtual void render() = 0;
-    
-    //keyboard input solution
-    virtual void keyboardInput(int key, int action);    //may delete
     
     
 };

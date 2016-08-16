@@ -30,11 +30,8 @@ public:
     void render();
     
     //shift board
-    void shift(float dist);
+    void shiftBoard(GLfloat bump, GLfloat dist);
 
-    //keyboard input solution
-    void keyboardInput(int key, int action);    //may delete
-    
 };
 
 #endif /* BoardDisplay_hpp */

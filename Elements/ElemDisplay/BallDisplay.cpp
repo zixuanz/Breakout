@@ -61,8 +61,9 @@ void BallDisplay::prepRender(const GLchar *vp, const GLchar *fp, const GLchar *g
     shader = new Shader(vp, fp, gp);
     prepVertices();
     prepDataArray();
-    model = glm::translate(model, glm::vec3(0.f, posY, 0.f));
+    model = glm::translate(model, glm::vec3(posX, posY, 0.f));
 }
+
 
 void BallDisplay:: render(){
     
@@ -76,21 +77,18 @@ void BallDisplay:: render(){
     
 }
 
-
-void BallDisplay:: keyboardInput(int key, int action){
-    //ball motion
-    float dist = ELEM_SHIFT_DIST;
-    if ((key == GLFW_KEY_LEFT || key == GLFW_KEY_A) && (action == GLFW_REPEAT || action == GLFW_PRESS))
-    {
-        ElemShift::shift(model, posX, ELEM_BOARD_WIDTH, -dist);
-        std::cout<< "ball"<<posX<<std::endl;
-    }
-    if ((key == GLFW_KEY_RIGHT || key == GLFW_KEY_D) && (action == GLFW_REPEAT || action == GLFW_PRESS))
-    {
-        ElemShift::shift(model, posX, ELEM_BOARD_WIDTH, dist);
-        std::cout<< "ball"<<posX<<std::endl;
-    }
+void BallDisplay:: move(GLfloat radian, GLdouble duration, GLint direction){
+    
+    moveTo(radian, duration, UP+LEFT);
+    model = glm::translate(model, glm::vec3(posX, posY, 0.f));
+    
 }
 
+
+void BallDisplay:: shiftBall(GLfloat bump, GLfloat dist){
+    
+    ElemShift::shift(model, posX, bump, dist);
+    
+}
 
 

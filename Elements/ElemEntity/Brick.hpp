@@ -14,8 +14,8 @@
 
 class Brick: public GameElem{
 private:
-//    float size;
-    int skill;
+//    GLfloat size;
+    GLint skill;
     
 public:
     
@@ -26,7 +26,7 @@ public:
     //void resetPolygonBrick();
     
     //decide what kind of bonus this brick will contain
-    void setSkill(int total);
+    void setSkill(GLint total);
     int getSkill();
     
 };

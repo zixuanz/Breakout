@@ -17,22 +17,22 @@
 class Board : public GameElem{
     
 protected:
-    float speed;
+    GLfloat speed;
     
 public:
     //constructors
     Board();
-    Board(float width, float height, float speed);
+    Board(GLfloat width, GLfloat height, GLfloat speed);
     
     //reset all properties of board with default value
     void reset();
     
     //encapsulation for board properties
-    void setSpeed(float speed);
-    float getSpeed();
+    void setSpeed(GLfloat speed);
+    GLfloat getSpeed();
     
     //board actions
-    void extendBoard(float scale);                 //extend the width of board. Scale > 0.5
+    void extendBoard(GLfloat scale);                 //extend the width of board. Scale > 0.5
 
 };
 

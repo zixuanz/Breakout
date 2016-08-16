@@ -17,16 +17,18 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Elements/ElemDisplay/BoardDisplay.hpp"
-#include "Elements/ElemDisplay/BallDisplay.hpp"
+#include "BoardDisplay.hpp"
+#include "BallDisplay.hpp"
+#include "BricksDisplay.hpp"
 
 const char *MAIN_WINDOW_TITLE = "Breakout";
 
 
 GLFWwindow *window;
 
-BoardDisplay *test;
-BallDisplay *test2;
+BoardDisplay *board;
+BallDisplay *ball;
+BricksDisplay *bricks;
 
 //function signitures
 static void error_callback(int error, const char* description);
@@ -72,9 +74,10 @@ int main(int argc, const char * argv[]) {
     //events callback set
     glfwSetKeyCallback(window, key_callback);
     
-    test = new BoardDisplay("../../New-Breakout/Shaders/Board.vertex", "../../New-Breakout/Shaders/Board.fragment", NULL);
-    test2 = new BallDisplay("../../New-Breakout/Shaders/Ball.vertex", "../../New-Breakout/Shaders/Ball.fragment", NULL);
-
+    
+    board = new BoardDisplay("../../New-Breakout/Shaders/Board.vertex", "../../New-Breakout/Shaders/Board.fragment", NULL);
+    ball = new BallDisplay("../../New-Breakout/Shaders/Ball.vertex", "../../New-Breakout/Shaders/Ball.fragment", NULL);
+    bricks = new BricksDisplay("../../New-Breakout/Shaders/Bricks.vertex", "../../New-Breakout/Shaders/Bricks.fragment", NULL, 2, 2);
     
     glViewport(0, 0, MAIN_WINDOW_WIDTH, -MAIN_WINDOW_HEIGHT);
     while (!glfwWindowShouldClose(window))
@@ -85,8 +88,9 @@ int main(int argc, const char * argv[]) {
         glClearColor(0.f, 0.f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        test->render();
-        test2->render();
+        board->render();
+        bricks->render();
+        ball->render();
         
         glfwSwapBuffers(window);
         
@@ -111,7 +115,4 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     //exit game
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
-    test->keyboardInput(key, action);
-    test2->keyboardInput(key, action);
 }
-

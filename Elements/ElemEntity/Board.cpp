@@ -14,7 +14,7 @@ Board::Board(){
     std::cout<< "Board Non-parameter" << std::endl;
 }
 
-Board::Board(float width, float height, float speed){
+Board::Board(GLfloat width, GLfloat height, GLfloat speed){
     this->width = width;
     this->height = height;
     this->speed = speed;
@@ -31,18 +31,18 @@ void Board::reset(){
 }
 
 //encapsulation for board properties
-void Board::setSpeed(float speed)
+void Board::setSpeed(GLfloat speed)
 {
     this->speed = speed;
 }
 
-float Board::getSpeed()
+GLfloat Board::getSpeed()
 {
     return this->speed;
 }
 
 //extend the width of board
-void Board:: extendBoard(float scale)
+void Board:: extendBoard(GLfloat scale)
 {
     this->width = this->width * scale;
 }

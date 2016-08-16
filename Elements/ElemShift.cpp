@@ -8,8 +8,8 @@
 
 #include "ElemShift.hpp"
 
-//
-void ElemShift:: shift(glm::mat4 &model, float &x, float bump, float displacement){
+//x is current elements position on x-coordinator
+void ElemShift:: shift(glm::mat4 &model, GLfloat &x, GLfloat bump, GLfloat displacement){
     
     if (canShift(x, bump, displacement))
     {
@@ -20,13 +20,13 @@ void ElemShift:: shift(glm::mat4 &model, float &x, float bump, float displacemen
 }
 
 //shift the board based on the given displacement
-void ElemShift:: shiftDist(float &x, float displacement)
+void ElemShift:: shiftDist(GLfloat &x, GLfloat displacement)
 {
     x += displacement;
 }
 
 //check whether we can shift. After shift, whether the borad is in the range or not.
-bool ElemShift:: canShift(float x, float bump, float displacement)
+bool ElemShift:: canShift(GLfloat x, GLfloat bump, GLfloat displacement)
 {
     
     if (fabs(x + displacement) <= fabs(1 - bump)) {

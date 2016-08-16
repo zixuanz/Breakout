@@ -8,7 +8,7 @@
 
 #include "BricksDisplay.hpp"
 
-BricksDisplay:: BricksDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp, int row, int col){
+BricksDisplay:: BricksDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp, GLint row, GLint col){
     
     this->row = row;
     this->col = col;
@@ -19,8 +19,8 @@ BricksDisplay:: BricksDisplay(const GLchar *vp, const GLchar *fp, const GLchar *
 
 void BricksDisplay:: prepOffset(){
     offset = (glm:: vec2 *)malloc(sizeof(glm::vec2) * row * col);
-    for (int i=0; i<row; i++){
-        for(int j=0; j<col; j++){
+    for (GLint i=0; i<row; i++){
+        for(GLint j=0; j<col; j++){
             
             if(j == 0){
                 offset[i*row].x = 0;
@@ -40,7 +40,7 @@ void BricksDisplay:: prepOffset(){
 
 void BricksDisplay:: setBricks(){
     bricks = (Brick *)malloc(sizeof(Brick) * row * col);
-    for(int i = 0; i<row*col; i++){
+    for(GLint i = 0; i<row*col; i++){
         bricks[i] = * new Brick();
     }
 }

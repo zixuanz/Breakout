@@ -11,14 +11,17 @@
 
 #include <cmath>
 
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 class ElemShift{
 public:
-    static void shift(glm::mat4 &model, float &x, float bump, float displacement);
-    static void shiftDist(float &x, float displacement);
-    static bool canShift(float x, float bump, float displacement);
+    static void shift(glm::mat4 &model, GLfloat &x, GLfloat bump, GLfloat displacement);
+    static void shiftDist(GLfloat &x, GLfloat displacement);
+    static bool canShift(GLfloat x, GLfloat bump, GLfloat displacement);
 };
 
 #endif /* ElemShift_hpp */

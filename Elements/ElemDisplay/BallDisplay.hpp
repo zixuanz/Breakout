@@ -15,6 +15,9 @@
 
 class BallDisplay: public Ball, public ElemDisplay{
     
+private:
+    double seconds;
+    
 public:
     
     BallDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp);
@@ -30,11 +33,9 @@ public:
     //render
     void render();
     
-    //shift ball at beginning with board if board is shifting
-    void shift(float dist);
-
-    //keyboard input solution
-    void keyboardInput(int key, int action);    //may delete
+    //actions for board
+    void move(GLfloat radian, GLdouble duration, GLint direction);            //move in the playground
+    void shiftBall(GLfloat bump, GLfloat dist);            //shift board
 
 };
 

@@ -8,39 +8,39 @@
 
 #include "GameElem.hpp"
 
-void GameElem:: setWidth(float width){
+void GameElem:: setWidth(GLfloat width){
     this->width = width;
 }
 
-float GameElem:: getWidth(){
+GLfloat GameElem:: getWidth(){
     return width;
 }
 
-void GameElem:: setHeight(float height){
+void GameElem:: setHeight(GLfloat height){
     this->height = height;
 }
 
-float GameElem:: getHeight(){
+GLfloat GameElem:: getHeight(){
     return height;
 }
 
-void  GameElem:: setPosX(float x){
+void  GameElem:: setPosX(GLfloat x){
     posX = x;
 }
 
-float GameElem:: getPosX(){
+GLfloat GameElem:: getPosX(){
     return posX;
 }
 
-void GameElem:: setPosY(float y){
+void GameElem:: setPosY(GLfloat y){
     posY = y;
 }
 
-float GameElem:: getPosY(){
+GLfloat GameElem:: getPosY(){
     return posY;
 }
 
-void GameElem:: updatePos(float x, float y){
+void GameElem:: updatePos(GLfloat x, GLfloat y){
     posX = x;
     posY = y;
 }

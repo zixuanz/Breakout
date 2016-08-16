@@ -16,31 +16,31 @@
 class GameElem{
     
 protected:
-    float width;
-    float height;
+    GLfloat width;
+    GLfloat height;
     
-    float posX;
-    float posY;
+    GLfloat posX;
+    GLfloat posY;
     
 public:
     //reset all properties of elements with default value
     virtual void reset() = 0;
     
     //encapsulation for perperties
-    void setWidth(float width);
-    float getWidth();
+    void setWidth(GLfloat width);
+    GLfloat getWidth();
     
-    void setHeight(float height);
-    float getHeight();
+    void setHeight(GLfloat height);
+    GLfloat getHeight();
     
-    void setPosX(float x);
-    float getPosX();
+    void setPosX(GLfloat x);
+    GLfloat getPosX();
     
-    void setPosY(float y);
-    float getPosY();
+    void setPosY(GLfloat y);
+    GLfloat getPosY();
     
     //update the position of element
-    void updatePos(float x, float y);
+    void updatePos(GLfloat x, GLfloat y);
     
     
     

@@ -57,11 +57,13 @@ void BoardDisplay:: prepDataArray(){
     
 }
 
-void BoardDisplay::prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp){
+
+
+void BoardDisplay:: prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp){
     shader = new Shader(vp, fp, gp);
     prepVertices();
     prepDataArray();
-    model = glm::translate(model, glm::vec3(0.f, posY, 0.f));
+    model = glm::translate(model, glm::vec3(posX, posY, 0.f));
 }
 
 void BoardDisplay:: render(){
@@ -76,23 +78,11 @@ void BoardDisplay:: render(){
 
 }
 
-void BoardDisplay:: keyboardInput(int key, int action){
-    //board motion
-    float dist = ELEM_SHIFT_DIST * getSpeed();
-    if ((key == GLFW_KEY_LEFT || key == GLFW_KEY_A) && (action == GLFW_REPEAT || action == GLFW_PRESS))
-    {
-        ElemShift::shift(model, posX, width, -dist);
-        std::cout<< "board"<<posX<<std::endl;
-        
-    }
-    if ((key == GLFW_KEY_RIGHT || key == GLFW_KEY_D) && (action == GLFW_REPEAT || action == GLFW_PRESS))
-    {
-        ElemShift::shift(model, posX, width, dist);
-        std::cout<< "board"<<posX<<std::endl;
-    }
+void BoardDisplay:: shiftBoard(GLfloat bump, GLfloat dist){
+    
+    ElemShift::shift(model, posX, bump, dist);
+    
 }
-
-
 
 
 

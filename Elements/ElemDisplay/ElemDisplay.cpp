@@ -8,12 +8,16 @@
 
 #include "ElemDisplay.hpp"
 
-float* ElemDisplay:: getVertices(){
+GLfloat* ElemDisplay:: getVertices(){
     return vertices;
 }
 
-int* ElemDisplay:: getIndex(){
+GLint* ElemDisplay:: getIndex(){
     return index;
+}
+
+glm::mat4 ElemDisplay:: getModel(){
+    return model;
 }
 
 void ElemDisplay:: prepcolorVert(){
@@ -22,8 +26,4 @@ void ElemDisplay:: prepcolorVert(){
 
 void ElemDisplay:: preptextureVert(){
     //implement it when need it
-}
-
-void ElemDisplay:: keyboardInput(int key, int action){
-    
 }
