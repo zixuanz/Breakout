@@ -17,18 +17,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "BoardDisplay.hpp"
-#include "BallDisplay.hpp"
-#include "BricksDisplay.hpp"
+#include "GamePlaying.hpp"
 
 const char *MAIN_WINDOW_TITLE = "Breakout";
 
 
 GLFWwindow *window;
-
-BoardDisplay *board;
-BallDisplay *ball;
-BricksDisplay *bricks;
+GamePlaying *game;
 
 //function signitures
 static void error_callback(int error, const char* description);
@@ -75,9 +70,7 @@ int main(int argc, const char * argv[]) {
     glfwSetKeyCallback(window, key_callback);
     
     
-    board = new BoardDisplay("../../New-Breakout/Shaders/Board.vertex", "../../New-Breakout/Shaders/Board.fragment", NULL);
-    ball = new BallDisplay("../../New-Breakout/Shaders/Ball.vertex", "../../New-Breakout/Shaders/Ball.fragment", NULL);
-    bricks = new BricksDisplay("../../New-Breakout/Shaders/Bricks.vertex", "../../New-Breakout/Shaders/Bricks.fragment", NULL, 2, 2);
+    game = new GamePlaying(1, 1, 1);
     
     glViewport(0, 0, MAIN_WINDOW_WIDTH, -MAIN_WINDOW_HEIGHT);
     while (!glfwWindowShouldClose(window))
@@ -88,9 +81,7 @@ int main(int argc, const char * argv[]) {
         glClearColor(0.f, 0.f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        board->render();
-        bricks->render();
-        ball->render();
+        game->render();
         
         glfwSwapBuffers(window);
         
@@ -115,4 +106,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     //exit game
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
+    
+    game->keyboardInput(key, action);
 }

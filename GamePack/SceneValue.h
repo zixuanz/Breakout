@@ -9,5 +9,15 @@
 #ifndef SceneValue_h
 #define SceneValue_h
 
+enum status{
+    MENU,
+    LOAD,
+    PERP,
+    START,
+    END
+};
+
+enum 
+
 
 #endif /* SceneValue_h */

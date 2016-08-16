@@ -1,17 +1,17 @@
 //
-//  Game.hpp
+//  Breakout.hpp
 //  New-Breakout
 //
 //  Created by Zixuan Zhao on 8/3/16.
 //  Copyright © 2016 Zixuan Zhao. All rights reserved.
 //
 
-#ifndef Game_hpp
-#define Game_hpp
+#ifndef Breakout_hpp
+#define Breakout_hpp
 
 
 
-class Game{
+class Breakout{
     
 private:
     int status;
@@ -21,4 +21,4 @@ private:
 };
 
 
-#endif /* Game_hpp */
+#endif /* Breakout_hpp */

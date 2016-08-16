@@ -20,20 +20,20 @@ MapReader:: MapReader(const char * path)
     root = map.FirstChild();
 }
 
-//get stage and level element
-void MapReader:: setCurrMap(int stage, int level)
+//get stage and num element
+void MapReader:: setCurrMap(int stage, int num)
 {
     setCurrStage(stage);
-    setCurrLevel(level);
+    setCurrNum(num);
     
     currMap.stage = stage;
-    currMap.level = level;
+    currMap.num = num;
     currMap.stageName = currStage->FirstChildElement("name")->Value();
-    currMap.levelName = currLevel->FirstChildElement("name")->Value();
+    currMap.numName = currNum->FirstChildElement("name")->Value();
     currMap.types = currStage->IntAttribute("types");
-    currMap.row = currLevel->FirstChildElement("bricks")->IntAttribute("row");
-    currMap.col = currLevel->FirstChildElement("bricks")->IntAttribute("col");
-    currMap.pattern = currLevel->Value();
+    currMap.row = currNum->FirstChildElement("bricks")->IntAttribute("row");
+    currMap.col = currNum->FirstChildElement("bricks")->IntAttribute("col");
+    currMap.pattern = currNum->Value();
 }
 
 void MapReader:: setCurrStage(int stage)
@@ -51,16 +51,16 @@ void MapReader:: setCurrStage(int stage)
     }
 }
 
-void MapReader:: setCurrLevel(int level)
+void MapReader:: setCurrNum(int num)
 {
     if (currStage == NULL) {
         std::cout << "ERROR: Failed to read data. Data is wrong. "<< std::endl;
         exit(EXIT_FAILURE);
     }
     
-    currLevel = currStage->FirstChildElement("level");
-    while (currLevel->IntAttribute("no") != level) {
-        currLevel = currLevel->NextSiblingElement("level");
+    currNum = currStage->FirstChildElement("num");
+    while (currNum->IntAttribute("no") != num) {
+        currNum = currNum->NextSiblingElement("num");
     }
 }
 

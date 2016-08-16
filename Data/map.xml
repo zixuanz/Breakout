@@ -1,0 +1,32 @@
+<map>
+    <stage no="1" types="2">
+        <name>Classic</name>
+        <shape>11</shape>
+        <num no="1">
+            <name>NUM1</name>
+            <bricks row="2" col="2">
+                0120
+            </bricks>
+        </num>
+    </stage>
+    <stage no="2" types="3">
+        <name>Faster</name>
+        <shape>11</shape>
+        <num no="1">
+            <name>NUM1</name>
+            <bricks row="2" col="2">
+                0120
+            </bricks>
+        </num>
+    </stage>
+    <stage no="3" types="3">
+        <name>Slower</name>
+        <shape>11</shape>
+        <num no="1">
+            <name>NUM1</name>
+            <bricks row="2" col="2">
+                0120
+            </bricks>
+        </num>
+    </stage>
+</map>

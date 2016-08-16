@@ -21,15 +21,15 @@ private:
     XMLDocument map;
     XMLNode *root;
     XMLElement *currStage;
-    XMLElement *currLevel;
+    XMLElement *currNum;
     
     
 public:
     struct info {
         int stage;
-        int level;
+        int num;
         const char *stageName;
-        const char *levelName;
+        const char *numName;
         int types;
         int row;
         int col;
@@ -38,10 +38,10 @@ public:
     
     MapReader(const char * path);
     
-    //get stage and level element
-    void setCurrMap(int stage, int level);
+    //get stage and num element
+    void setCurrMap(int stage, int num);
     void setCurrStage(int stage);
-    void setCurrLevel(int level);
+    void setCurrNum(int num);
 };
 
 #endif /* MapReader_hpp */
