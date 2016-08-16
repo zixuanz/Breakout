@@ -58,6 +58,8 @@ public:
     
     //encapsulation for neccessary
     
+    virtual void reset() = 0;
+    
     GLfloat* getVertices();
     GLint* getIndex();
     glm::mat4 getModel();
@@ -73,7 +75,7 @@ public:
     virtual void prepDataArray() = 0;
     
     //prepare for render
-    virtual void prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp = NULL) = 0;
+    virtual void prepRender() = 0;
     
     //render
     virtual void render() = 0;

@@ -27,6 +27,8 @@ public:
     
     BricksDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp, GLint row, GLint col);
     
+    void reset();
+    
     //prepare for bricks
     void setBricks();
     
@@ -37,7 +39,7 @@ public:
     void prepDataArray();
     
     //prepare for render
-    void prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp = NULL);
+    void prepRender();
     
     //render
     void render();

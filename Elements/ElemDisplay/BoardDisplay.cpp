@@ -9,7 +9,8 @@
 #include "BoardDisplay.hpp"
 
 BoardDisplay:: BoardDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp){
-    prepRender(vp, fp, gp);
+    shader = new Shader(vp, fp, gp);
+    prepRender();
 }
 
 void BoardDisplay:: prepVertices(){
@@ -23,6 +24,11 @@ void BoardDisplay:: prepVertices(){
     vertices[6] = width;
     vertices[7] = -height;
     
+}
+
+void BoardDisplay:: reset(){
+    Board::reset();
+    prepRender();
 }
 
 
@@ -59,8 +65,7 @@ void BoardDisplay:: prepDataArray(){
 
 
 
-void BoardDisplay:: prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp){
-    shader = new Shader(vp, fp, gp);
+void BoardDisplay:: prepRender(){
     prepVertices();
     prepDataArray();
     model = glm::translate(model, glm::vec3(posX, posY, 0.f));

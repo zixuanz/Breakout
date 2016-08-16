@@ -22,13 +22,15 @@ public:
     
     BallDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp);
     
+    void reset();
+    
     //prepare buffers for sending data
     void prepVertices();
     void prepTextureVert();
     void prepDataArray();
     
     //prepare for render
-    void prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp = NULL);
+    void prepRender();
     
     //render
     void render();

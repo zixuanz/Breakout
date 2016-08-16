@@ -13,8 +13,14 @@ BricksDisplay:: BricksDisplay(const GLchar *vp, const GLchar *fp, const GLchar *
     this->row = row;
     this->col = col;
     
-    prepRender(vp, fp, gp);
+    shader = new Shader(vp, fp, gp);
+    prepRender();
     
+}
+
+void BricksDisplay:: reset(){
+    Brick::reset();
+    prepRender();
 }
 
 void BricksDisplay:: prepOffset(){
@@ -96,8 +102,7 @@ void BricksDisplay:: prepDataArray(){
     
 }
 
-void BricksDisplay::prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp){
-    shader = new Shader(vp, fp, gp);
+void BricksDisplay::prepRender(){
     prepVertices();
     prepOffset();
     prepDataArray();

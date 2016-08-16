@@ -25,7 +25,7 @@ const GLfloat ELEM_BRICK_SIZE = 0.01f;
 const GLfloat ELEM_BALL_RADIUS = 0.05f;
 const GLfloat ELEM_BALL_POSX = 0.0f;
 const GLfloat ELEM_BALL_POSY = ELEM_BOARD_POSY + ELEM_BOARD_HEIGHT + ELEM_BALL_RADIUS;
-const GLfloat ELEM_BALL_VELOCITY = 2;
+const GLfloat ELEM_BALL_VELOCITY = 1;
 const GLfloat ELEM_BALL_SPRING = 0.67;
 
 const GLfloat ELEM_SHIFT_DIST = 0.02f;

@@ -9,7 +9,13 @@
 #include "BallDisplay.hpp"
 
 BallDisplay:: BallDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp){
-    prepRender(vp, fp, gp);
+    shader = new Shader(vp, fp, gp);
+    prepRender();
+}
+
+void BallDisplay:: reset(){
+    Ball::reset();
+    prepRender();
 }
 
 void BallDisplay:: prepVertices(){
@@ -57,8 +63,7 @@ void BallDisplay:: prepDataArray(){
     
 }
 
-void BallDisplay::prepRender(const GLchar *vp, const GLchar *fp, const GLchar *gp){
-    shader = new Shader(vp, fp, gp);
+void BallDisplay::prepRender(){
     prepVertices();
     prepDataArray();
     model = glm::translate(model, glm::vec3(posX, posY, 0.f));
@@ -79,8 +84,34 @@ void BallDisplay:: render(){
 
 void BallDisplay:: move(GLfloat radian, GLdouble duration, GLint direction){
     
-    moveTo(radian, duration, UP+LEFT);
-    model = glm::translate(model, glm::vec3(posX, posY, 0.f));
+    GLfloat xDist = velocity * sinf(radian) * duration;
+    GLfloat yDist = velocity * cosf(radian) * duration;
+    GLfloat gDist = 0.5 * 9.8 * duration * duration;
+    
+    GLfloat x = 0;
+    GLfloat y = 0;
+    
+    std::cout<< "Direction1: " << direction << " "<< sinf(radian) <<std::endl;
+    if (direction %2 != 0) {
+        y = yDist - gDist;
+        direction -= UP;
+    }else if(direction >= DOWN){
+        y -= yDist + gDist;
+        direction -= DOWN;
+    }
+    
+    std::cout<< "Direction2: " << direction <<std::endl;
+    if(direction == LEFT){
+        x -= xDist;
+    }else if(direction == RIGHT){
+        x = xDist;
+    }
+    posY += y;
+    posX += x;
+    
+    std::cout<< "Ball Posx: " << posX << ", PosY: " << posY <<std::endl;
+    
+    model = glm::translate(model, glm::vec3(x, y, 0.f));
     
 }
 
