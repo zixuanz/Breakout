@@ -16,13 +16,19 @@
 class BallDisplay: public Ball, public ElemDisplay{
     
 private:
-    double seconds;
+    GLint impactDirect[2] = {0, 0};
+    GLfloat radian;
     
 public:
     
     BallDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp);
     
     void reset();
+    void setImpactDirect(GLint index, GLint direct);
+    
+    void setRadian(GLfloat radian);
+    GLfloat getRadian();
+    void randomRadian();
     
     //prepare buffers for sending data
     void prepVertices();
@@ -33,10 +39,11 @@ public:
     void prepRender();
     
     //render
-    void render();
+    void render(glm::mat4 view);
     
     //actions for board
-    void move(GLfloat radian, GLdouble duration, GLint direction);            //move in the playground
+    void move(GLdouble duration);            //move in the playground
+    void rebound();
     void shiftBall(GLfloat bump, GLfloat dist);            //shift board
 
 };

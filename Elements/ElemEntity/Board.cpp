@@ -11,40 +11,41 @@
 //Constructor for Board class
 Board::Board(){
     reset();
-    std::cout<< "Board Non-parameter" << std::endl;
+    //std::cout<< "Board Non-parameter" << std::endl;
 }
 
-Board::Board(GLfloat width, GLfloat height, GLfloat speed){
-    this->width = width;
-    this->height = height;
-    this->speed = speed;
-    std::cout<< "Board parameter" << std::endl;
+Board::Board(GLfloat width, GLfloat height, GLfloat velocity){
+    this->setWidth(width);
+    this->setHeight(height);
+    this->updatePos(ELEM_BOARD_POSX, ELEM_BOARD_POSY);
+    this->setVelocity(velocity);
+    
+    //std::cout<< "Board parameter" << this->width << std::endl;
 }
 
 
 void Board::reset(){
-    this->height = ELEM_BOARD_HEIGHT;
-    this->width = ELEM_BOARD_WIDTH;
-    this->posX = ELEM_BOARD_POSX;
-    this->posY = ELEM_BOARD_POSY;
-    this->speed = 1.0;
+    this->setWidth(ELEM_BOARD_WIDTH);
+    this->setHeight(ELEM_BOARD_HEIGHT);
+    this->updatePos(ELEM_BOARD_POSX, ELEM_BOARD_POSY);
+    this->setVelocity(ELEM_BOARD_VELOCITY);
 }
 
 //encapsulation for board properties
-void Board::setSpeed(GLfloat speed)
+void Board::setVelocity(GLfloat velocity)
 {
-    this->speed = speed;
+    this->velocity = velocity;
 }
 
-GLfloat Board::getSpeed()
+GLfloat Board::getVelocity()
 {
-    return this->speed;
+    return this->velocity;
 }
 
 //extend the width of board
 void Board:: extendBoard(GLfloat scale)
 {
-    this->width = this->width * scale;
+    this->setWidth(this->getWidth() * scale);
 }
 
 

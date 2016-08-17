@@ -15,14 +15,14 @@ BoardDisplay:: BoardDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp
 
 void BoardDisplay:: prepVertices(){
     
-    vertices[0] = -width;
-    vertices[1] = -height;
-    vertices[2] = -width;
-    vertices[3] = height;
-    vertices[4] = width;
-    vertices[5] = height;
-    vertices[6] = width;
-    vertices[7] = -height;
+    vertices[0] = -getWidth();
+    vertices[1] = -getHeight();
+    vertices[2] = -getWidth();
+    vertices[3] = getHeight();
+    vertices[4] = getWidth();
+    vertices[5] = getHeight();
+    vertices[6] = getWidth();
+    vertices[7] = -getHeight();
     
 }
 
@@ -68,14 +68,14 @@ void BoardDisplay:: prepDataArray(){
 void BoardDisplay:: prepRender(){
     prepVertices();
     prepDataArray();
-    model = glm::translate(model, glm::vec3(posX, posY, 0.f));
+    model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.f));
 }
 
-void BoardDisplay:: render(){
+void BoardDisplay:: render(glm::mat4 view){
     
     GLint coor = glGetUniformLocation(shader->Program, "viewCoor");
     shader->runShader();
-    glUniformMatrix4fv(coor, 1, GL_FALSE, glm::value_ptr(ortho * camera * model));
+    glUniformMatrix4fv(coor, 1, GL_FALSE, glm::value_ptr(view * model));
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);       //unbind
@@ -85,8 +85,8 @@ void BoardDisplay:: render(){
 
 void BoardDisplay:: shiftBoard(GLfloat bump, GLfloat dist){
     
-    ElemShift::shift(model, posX, bump, dist);
-    
+    ElemShift::shift(model, pos.x, bump, dist);
+
 }
 
 

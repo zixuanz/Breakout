@@ -18,14 +18,14 @@
 #include "BricksDisplay.hpp"
 
 
+
 //deal with the case when game is playing
 class GamePlaying : public Scenes{
     
 private:
-    GLint stage;
-    GLint num;
+    GLint stage;        //current stage
+    GLint num;          //in current stage, the number of scene
     GLint level;
-    GLint status;
     
     BallDisplay *ball;
     BoardDisplay *board;
@@ -40,7 +40,12 @@ public:
     
     void reset();
     
-    void isCollision();
+    //impact actions
+    void isCollision();                 //whether impact with other
+    GLboolean isHitWall();              //whether hit the wall
+    GLboolean isIn(GLfloat small, GLfloat large, GLfloat val);
+    
+    void impact();                //draw moves
     
     void render();
     

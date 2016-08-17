@@ -17,7 +17,7 @@
 class Board : public GameElem{
     
 protected:
-    GLfloat speed;
+    GLfloat velocity;
     
 public:
     //constructors
@@ -28,8 +28,8 @@ public:
     void reset();
     
     //encapsulation for board properties
-    void setSpeed(GLfloat speed);
-    GLfloat getSpeed();
+    void setVelocity(GLfloat velocity);
+    GLfloat getVelocity();
     
     //board actions
     void extendBoard(GLfloat scale);                 //extend the width of board. Scale > 0.5

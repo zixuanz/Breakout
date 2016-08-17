@@ -9,23 +9,42 @@
 #include "Ball.hpp"
 
 //Constructor for Ball class
-Ball::Ball(){
+Ball:: Ball(){
     reset();
 }
 
 //Reset each parameter to default value
-void Ball::reset(){
-    this->width = ELEM_BALL_RADIUS;
-    this->height = ELEM_BALL_RADIUS;
-    this->posX = ELEM_BALL_POSX;
-    this->posY = ELEM_BALL_POSY;
-    this->velocity = ELEM_BALL_VELOCITY;
+void Ball:: reset(){
+    this->setWidth(ELEM_BALL_RADIUS);
+    this->setHeight(ELEM_BALL_RADIUS);
+    this->updatePos(ELEM_BALL_POSX, ELEM_BALL_POSY);
+    this->setVelocity(ELEM_BALL_VELOCITY);
+    this->setSpring(ELEM_BALL_SPRING);
+}
+
+void Ball:: setVelocity(GLfloat velocity){
+    this->velocity = velocity;
+}
+
+GLfloat Ball:: getVelocity(){
+    return this->velocity;
+}
+
+void Ball:: setSpring(GLfloat spring){
+    this->spring = spring;
+}
+
+GLfloat Ball:: getSpring(){
+    return this->spring;
 }
 
 
 //Resize the ball by a specific scale
 void Ball:: resizeBall(GLdouble scale)
 {
-    this->width = this->width * scale;
-    this->height = this->height * scale;
+    this->setWidth(this->getWidth() * scale);
+    this->setHeight(this->getHeight() * scale);
 }
+
+
+

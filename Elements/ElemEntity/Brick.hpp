@@ -16,6 +16,7 @@ class Brick: public GameElem{
 private:
 //    GLfloat size;
     GLint skill;
+    GLboolean exist;
     
 public:
     
@@ -28,6 +29,8 @@ public:
     //decide what kind of bonus this brick will contain
     void setSkill(GLint total);
     int getSkill();
+    
+    //brick property
     
 };
 

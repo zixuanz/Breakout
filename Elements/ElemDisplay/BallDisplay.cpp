@@ -9,25 +9,52 @@
 #include "BallDisplay.hpp"
 
 BallDisplay:: BallDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp){
+    
+    randomRadian();
+
     shader = new Shader(vp, fp, gp);
     prepRender();
 }
 
 void BallDisplay:: reset(){
+    
+    randomRadian();
+
     Ball::reset();
     prepRender();
 }
 
+void BallDisplay:: setImpactDirect(GLint index, GLint direct){
+    this->impactDirect[index] = direct;
+}
+
+void BallDisplay:: setRadian(GLfloat radian){
+    this->radian = radian;
+}
+
+GLfloat BallDisplay:: getRadian(){
+    return this->radian;
+}
+
+void BallDisplay:: randomRadian(){
+    
+    GLint neg[2] = {-1, 1};
+    srand(time(NULL));
+    //GLfloat temp = ((float) rand()) / (float) RAND_MAX * 0.5 * M_PI * neg[(rand() % 2)];
+    GLfloat temp = -1 * M_PI / 4;
+    this->setRadian(temp);
+}
+
 void BallDisplay:: prepVertices(){
     
-    vertices[0] = -width;
-    vertices[1] = -height;
-    vertices[2] = -width;
-    vertices[3] = height;
-    vertices[4] = width;
-    vertices[5] = height;
-    vertices[6] = width;
-    vertices[7] = -height;
+    vertices[0] = -getWidth();
+    vertices[1] = -getHeight();
+    vertices[2] = -getWidth();
+    vertices[3] = getHeight();
+    vertices[4] = getWidth();
+    vertices[5] = getHeight();
+    vertices[6] = getWidth();
+    vertices[7] = -getHeight();
     
 }
 
@@ -66,15 +93,15 @@ void BallDisplay:: prepDataArray(){
 void BallDisplay::prepRender(){
     prepVertices();
     prepDataArray();
-    model = glm::translate(model, glm::vec3(posX, posY, 0.f));
+    model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.f));
 }
 
 
-void BallDisplay:: render(){
+void BallDisplay:: render(glm::mat4 view){
     
     GLint coor = glGetUniformLocation(shader->Program, "viewCoor");
     shader->runShader();
-    glUniformMatrix4fv(coor, 1, GL_FALSE, glm::value_ptr(ortho * camera * model));
+    glUniformMatrix4fv(coor, 1, GL_FALSE, glm::value_ptr(view * model));
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);       //unbind
@@ -82,6 +109,40 @@ void BallDisplay:: render(){
     
 }
 
+void BallDisplay:: move(GLdouble duration){
+    
+    GLfloat xDist = velocity * sinf(radian) * duration;
+    GLfloat yDist = velocity * cosf(radian) * duration - 0.5 * 9.8 * duration * duration;
+    
+    model = glm::translate(model, glm::vec3(xDist, yDist, 0.f));
+    
+    updatePos(getPosX()+xDist, getPosY() + yDist);
+    
+    std::cout<< "Ball Radian: " << radian << "; Ball pos:" << pos.x << " " << pos.y << std::endl;
+    
+}
+
+
+void BallDisplay:: rebound(){
+    
+    if (impactDirect[0] == TOP || impactDirect[0] == BOTTOM) {
+        if(radian <= 0){
+            radian = -(M_PI + radian);
+        }else{
+            radian = M_PI - radian;
+        }
+    }
+    
+    if (impactDirect[1] == LEFT || impactDirect[1] == RIGHT) {
+        radian *= -1;
+    }
+    std::cout << "impact direction:" << impactDirect[0] << " " << impactDirect[1] << std::endl;
+    impactDirect[0] = 0;
+    impactDirect[1] = 0;
+    
+}
+
+/*
 void BallDisplay:: move(GLfloat radian, GLdouble duration, GLint direction){
     
     GLfloat xDist = velocity * sinf(radian) * duration;
@@ -115,10 +176,11 @@ void BallDisplay:: move(GLfloat radian, GLdouble duration, GLint direction){
     
 }
 
+*/
 
 void BallDisplay:: shiftBall(GLfloat bump, GLfloat dist){
     
-    ElemShift::shift(model, posX, bump, dist);
+    ElemShift::shift(model, pos.x, bump, dist);
     
 }
 

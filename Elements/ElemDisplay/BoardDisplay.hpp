@@ -29,7 +29,7 @@ public:
     void prepRender();
     
     //render
-    void render();
+    void render(glm::mat4 view);
     
     //shift board
     void shiftBoard(GLfloat bump, GLfloat dist);

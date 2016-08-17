@@ -42,7 +42,7 @@ public:
     void prepRender();
     
     //render
-    void render();
+    void render(glm::mat4 view);
 
 };
 

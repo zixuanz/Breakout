@@ -13,14 +13,28 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "DefGameValue.h"
 
+
 class Scenes{
-protected:
-    static GLint status;
     
+protected:
+    static GLfloat winWidth;
+    static GLfloat winHeight;
+    
+    static GLint status;
+    static glm::mat4 camera;
+    static glm::mat4 ortho;
+    static GLfloat winScale;
+    static glm::mat4 view;
     
 public:
+    
+    static void setWinSize(GLfloat width, GLfloat height);
+    
     virtual void render() = 0;
     virtual void keyboardInput(GLint key, GLint action) = 0;
     

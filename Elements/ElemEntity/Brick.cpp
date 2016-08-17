@@ -15,8 +15,8 @@ Brick::Brick()
 }
 
 void Brick:: reset(){
-    this->width = ELEM_BRICK_WIDTH;
-    this->height = ELEM_BRICK_HEIGHT;
+    this->setWidth(ELEM_BRICK_WIDTH);
+    this->setHeight(ELEM_BRICK_HEIGHT);
 }
 
 /*

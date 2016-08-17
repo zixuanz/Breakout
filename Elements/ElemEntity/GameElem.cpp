@@ -25,22 +25,26 @@ GLfloat GameElem:: getHeight(){
 }
 
 void  GameElem:: setPosX(GLfloat x){
-    posX = x;
+    pos.x = x;
 }
 
 GLfloat GameElem:: getPosX(){
-    return posX;
+    return pos.x;
 }
 
 void GameElem:: setPosY(GLfloat y){
-    posY = y;
+    pos.y = y;
 }
 
 GLfloat GameElem:: getPosY(){
-    return posY;
+    return pos.y;
+}
+
+glm::vec2 GameElem:: getPos(){
+    return pos;
 }
 
 void GameElem:: updatePos(GLfloat x, GLfloat y){
-    posX = x;
-    posY = y;
+    pos.x = x;
+    pos.y = y;
 }

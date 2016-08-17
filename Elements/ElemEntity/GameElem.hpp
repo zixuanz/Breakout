@@ -11,7 +11,10 @@
 
 #include <iostream>
 
+#include <glm/vec2.hpp>
+
 #include "DefElemValue.h"
+
 
 class GameElem{
     
@@ -19,8 +22,7 @@ protected:
     GLfloat width;
     GLfloat height;
     
-    GLfloat posX;
-    GLfloat posY;
+    glm::vec2 pos;
     
 public:
     //reset all properties of elements with default value
@@ -38,6 +40,8 @@ public:
     
     void setPosY(GLfloat y);
     GLfloat getPosY();
+    
+    glm::vec2 getPos();
     
     //update the position of element
     void updatePos(GLfloat x, GLfloat y);

@@ -32,13 +32,13 @@ void BricksDisplay:: prepOffset(){
                 offset[i*row].x = 0;
                 if(i != 0)
                     offset[i*row].y = offset[(i-1)*row].y - (GLfloat)getHeight() * 2;
-                std::cout<<i*row+j<<","<<offset[i*row+j].x <<","<<offset[i*row+j].y << std::endl;
+                //std::cout<<i*row+j<<","<<offset[i*row+j].x <<","<<offset[i*row+j].y << std::endl;
                 continue;
             }
             
             offset[i*row+j].x = offset[i*row+j-1].x + (GLfloat)getWidth() * 2;
             offset[i*row+j].y = offset[i*row].y;
-            std::cout<<i*row+j<<","<<offset[i*row+j].x <<","<<offset[i*row+j].y << std::endl;
+            //std::cout<< "Bricks pos: \n" <<i*row+j<<","<<offset[i*row+j].x <<","<<offset[i*row+j].y << std::endl;
         }
     }
     
@@ -53,14 +53,14 @@ void BricksDisplay:: setBricks(){
 
 void BricksDisplay:: prepVertices(){
     
-    vertices[0] = -width;
-    vertices[1] = -height;
-    vertices[2] = -width;
-    vertices[3] = height;
-    vertices[4] = width;
-    vertices[5] = height;
-    vertices[6] = width;
-    vertices[7] = -height;
+    vertices[0] = -getWidth();
+    vertices[1] = -getHeight();
+    vertices[2] = -getWidth();
+    vertices[3] = getHeight();
+    vertices[4] = getWidth();
+    vertices[5] = getHeight();
+    vertices[6] = getWidth();
+    vertices[7] = -getHeight();
     
 }
 
@@ -106,14 +106,14 @@ void BricksDisplay::prepRender(){
     prepVertices();
     prepOffset();
     prepDataArray();
-    model = glm::translate(model, glm::vec3(-0.3f, 0.7f, 0.f));     //--need to ajust it, may need a function
+    model = glm::translate(model, glm::vec3(getWidth() * col * (-1), 0.7f, 0.f));     //--need to ajust it, may need a function
 }
 
-void BricksDisplay:: render(){
+void BricksDisplay:: render(glm::mat4 view){
     
     GLint coor = glGetUniformLocation(shader->Program, "viewCoor");
     shader->runShader();
-    glUniformMatrix4fv(coor, 1, GL_FALSE, glm::value_ptr(ortho * camera * model));
+    glUniformMatrix4fv(coor, 1, GL_FALSE, glm::value_ptr(view * model));
     glBindVertexArray(VAO);
     glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, 4);
     glBindVertexArray(0);       //unbind

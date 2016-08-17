@@ -17,6 +17,7 @@ class Ball : public GameElem{
     
 protected:
     GLfloat velocity;
+    GLfloat spring;
     
 public:
     
@@ -27,8 +28,11 @@ public:
     void setVelocity(GLfloat velocity);
     GLfloat getVelocity();
     
+    void setSpring(GLfloat spring);
+    GLfloat getSpring();
+    
     void resizeBall(GLdouble scale);                  //Resize the ball by a specific scale. Scale > 1.0
-        
+    
 };
 
 

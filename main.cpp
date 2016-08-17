@@ -20,7 +20,8 @@
 #include "GamePlaying.hpp"
 
 const char *MAIN_WINDOW_TITLE = "Breakout";
-
+const GLfloat MAIN_WINDOW_WIDTH = 480;
+const GLfloat MAIN_WINDOW_HEIGHT = 640;
 
 GLFWwindow *window;
 GamePlaying *game;
@@ -69,7 +70,7 @@ int main(int argc, const char * argv[]) {
     //events callback set
     glfwSetKeyCallback(window, key_callback);
     
-    
+    Scenes::setWinSize(MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT);
     game = new GamePlaying(1, 1, 1);
     
     glViewport(0, 0, MAIN_WINDOW_WIDTH, -MAIN_WINDOW_HEIGHT);

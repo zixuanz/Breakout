@@ -39,25 +39,74 @@ void GamePlaying:: isCollision(){
     
 }
 
+GLboolean GamePlaying:: isHitWall(){
+    
+    GLboolean res = false;
+    
+    if( (ball->getPosY() + ball->getHeight() + 0.001f > Scenes::winScale)
+                                        && isIn( 0.f, 1.f, cosf(ball->getRadian()) ) ){
+        ball->setImpactDirect(0, TOP);
+        res = true;
+    }else if( (ball->getPosY() - ball->getHeight() - 0.001f < -Scenes::winScale)
+                                        && isIn( -1.f, 0.f, cosf(ball->getRadian()) ) ){
+        //Scenes::status = END;
+        ball->setImpactDirect(0, BOTTOM);
+        res = true;
+    }
+    
+    if( (ball->getPosX() + ball->getWidth() + 0.001f > 1.f)
+                                        && isIn( 0.f, 1.f, sinf(ball->getRadian()) ) ){
+        ball->setImpactDirect(1, RIGHT);
+        res = true;
+    }else if( (ball->getPosX() - ball->getWidth() - 0.001f < -1.f)
+                                        && isIn( -1.f, 0.f, sinf(ball->getRadian()) ) ){
+        ball->setImpactDirect(1, LEFT);
+        res = true;
+    }
+    
+    return res;
+}
+
+GLboolean GamePlaying:: isIn(GLfloat small, GLfloat large, GLfloat val){
+    
+    if(val >= small && val <= large)
+        return true;
+    return false;
+    
+}
+
+void GamePlaying:: impact(){
+    
+    if (Scenes::status == START) {
+        
+        if(isHitWall()){
+            ball->rebound();
+            std::cout << "impact" << std::endl;
+        }
+        
+        duration = glfwGetTime() - startTime;
+        ball->move(duration);
+        
+    }
+    
+}
+
 
 void GamePlaying:: render(){
     
-    if (Scenes::status == START) {
-        duration = glfwGetTime() - startTime;
-        ball->move(M_PI/4, duration, UP+LEFT);
-        std::cout<< UP << std::endl;
-        startTime = glfwGetTime();
-    }
-    
-    
-    board->render();
-    ball->render();
-    bricks->render();
+    impact();
+
+    board->render(view);
+    ball->render(view);
+    bricks->render(view);
+    startTime = glfwGetTime();
 }
 
 void GamePlaying:: keyboardInput(GLint key, GLint action){
-    std::cout<<Scenes::status<<std::endl;
-    GLfloat dist = ELEM_SHIFT_DIST * board->getSpeed();
+    
+    
+    
+    GLfloat dist = ELEM_SHIFT_DIST * board->getVelocity();
     
     switch (Scenes::status) {
         case READY:
@@ -118,4 +167,6 @@ void GamePlaying:: keyboardInput(GLint key, GLint action){
     }
     
 
+    std::cout<<"Game Status: "<<Scenes::status<<std::endl;
+    
 }
