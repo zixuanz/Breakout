@@ -30,10 +30,15 @@ private:
     BallDisplay *ball;
     BoardDisplay *board;
     BricksDisplay *bricks;
-    MapReader *map;
+    static MapReader *map;
     
     GLdouble startTime;
     GLdouble duration;
+    
+    GLboolean isHitWith(BallDisplay *ball, GameElem *elem);                 //whether the ball impacts with elem
+    GLboolean isHitCornerWith(BallDisplay *ball, GameElem *elem);
+    static GLboolean isIn(GLfloat small, GLfloat large, GLfloat val);
+
     
 public:
     GamePlaying(GLint stage, GLint num, GLint level);
@@ -41,9 +46,9 @@ public:
     void reset();
     
     //impact actions
-    void isCollision();                 //whether impact with other
-    GLboolean isHitWall();              //whether hit the wall
-    GLboolean isIn(GLfloat small, GLfloat large, GLfloat val);
+    GLboolean isHitBricks(BallDisplay *ball);
+    GLboolean isHitBoard(BallDisplay *ball);
+    GLboolean isHitWall(BallDisplay *ball);              //whether the ball hits the wall
     
     void impact();                //draw moves
     
@@ -51,7 +56,7 @@ public:
     
     //keyboard input solution
     void keyboardInput(GLint key, GLint action);
-    
+    void mouseInput();
     
 };
 

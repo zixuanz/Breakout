@@ -8,6 +8,7 @@
 
 #include "GamePlaying.hpp"
 
+MapReader* GamePlaying:: map = new MapReader("../../New-Breakout/Data/map.xml");
 
 GamePlaying:: GamePlaying(GLint stage, GLint num, GLint level){
     
@@ -15,12 +16,16 @@ GamePlaying:: GamePlaying(GLint stage, GLint num, GLint level){
     this->num = num;
     this->level = level;
     
-    map = new MapReader("../../New-Breakout/Data/map.xml");
+    //load map
     map->setCurrMap(stage, num);
+    
+    //setup all game elements
     board = new BoardDisplay("../../New-Breakout/Shaders/Board.vertex", "../../New-Breakout/Shaders/Board.fragment", NULL);
     ball = new BallDisplay("../../New-Breakout/Shaders/Ball.vertex", "../../New-Breakout/Shaders/Ball.fragment", NULL);
-    bricks = new BricksDisplay("../../New-Breakout/Shaders/Bricks.vertex", "../../New-Breakout/Shaders/Bricks.fragment", NULL, map->currMap.row, map->currMap.col);
+    bricks = new BricksDisplay("../../New-Breakout/Shaders/Bricks.vertex", "../../New-Breakout/Shaders/Bricks.fragment", NULL, map->currMap.row, map->currMap.col, map->currMap.pattern);
     
+    
+    //change status of current game process
     Scenes::status = READY;
     
 }
@@ -33,32 +38,102 @@ void GamePlaying:: reset(){
     
 }
 
-void GamePlaying:: isCollision(){
-    
-    
-    
-}
 
-GLboolean GamePlaying:: isHitWall(){
+GLboolean GamePlaying:: isHitWith(BallDisplay *ball, GameElem *elem){
     
     GLboolean res = false;
     
-    if( (ball->getPosY() + ball->getHeight() + 0.001f > Scenes::winScale)
+    if( isIn(elem->getPosY()-elem->getHeight(), elem->getPosY()+elem->getHeight(),
+             ball->getPosY()+cosf(ball->getRadian()) * (ball->getHeight() + ELEM_BUMP_SIZE))  &&
+                isIn(elem->getPosX()-elem->getWidth(), elem->getPosX()+elem->getWidth(), ball->getPosX()) )
+    {
+       if(isIn( 0.f, 1.f, cosf(ball->getRadian()) ) ){
+           ball->setImpactDirect(0, BOTTOM);
+           res = true;
+           std::cout<<1<<std::endl;
+       } else if( isIn( -1.f, 0.f, cosf(ball->getRadian()))){
+           ball->setImpactDirect(0, TOP);
+           res = true;
+           std::cout<<2<<std::endl;
+       }
+    }
+    
+    if( isIn(elem->getPosX()-elem->getWidth(), elem->getPosX()+elem->getWidth(),
+             ball->getPosX()+sinf(ball->getRadian()) * (ball->getWidth() + ELEM_BUMP_SIZE)) &&
+                isIn(elem->getPosY()-elem->getHeight(), elem->getPosY()+elem->getHeight(), ball->getPosY()) )
+    {
+       if( isIn( 0.f, 1.f, sinf(ball->getRadian()) ) ){
+           ball->setImpactDirect(1, LEFT);
+           res = true;
+           std::cout<<3<<std::endl;
+       }else if( isIn( -1.f, 0.f, sinf(ball->getRadian()) ) ){
+           ball->setImpactDirect(1, RIGHT);
+           res = true;
+           std::cout<<4<<std::endl;
+       }
+    }
+    
+    return res;
+
+    
+}
+
+GLboolean GamePlaying:: isHitCornerWith(BallDisplay *ball, GameElem *elem){
+    
+    if(fabsf(ball->getRadian()) == M_PI/4 || fabsf(ball->getRadian()) == M_PI/4*3){
+        
+        if(
+            glm::distance(ball->getPos(),
+                glm::vec2(elem->getPosX()-elem->getWidth(), elem->getPosY()-elem->getHeight())) <= ball->getRadian() ||
+            glm::distance(ball->getPos(),
+                glm::vec2(elem->getPosX()+elem->getWidth(), elem->getPosY()-elem->getHeight())) <= ball->getRadian() ||
+            glm::distance(ball->getPos(),
+                glm::vec2(elem->getPosX()-elem->getWidth(), elem->getPosY()+elem->getHeight())) <= ball->getRadian() ||
+            glm::distance(ball->getPos(),
+                         glm::vec2(elem->getPosX()+elem->getWidth(), elem->getPosY()+elem->getHeight())) <= ball->getRadian()
+           ){
+            ball->setImpactDirect(0, 1);
+            ball->setImpactDirect(1, 1);
+            return true;
+        }
+        
+    }
+    
+    return false;
+}
+
+GLboolean GamePlaying:: isHitBricks(BallDisplay *ball){
+    
+    
+    return false;
+}
+
+
+GLboolean GamePlaying:: isHitBoard(BallDisplay *ball){
+    return (isHitWith(ball, board) || isHitCornerWith(ball, board));
+}
+
+
+GLboolean GamePlaying:: isHitWall(BallDisplay *ball){
+    
+    GLboolean res = false;
+    
+    if( (ball->getPosY() + ball->getHeight() + ELEM_BUMP_SIZE > Scenes::winScale)
                                         && isIn( 0.f, 1.f, cosf(ball->getRadian()) ) ){
         ball->setImpactDirect(0, TOP);
         res = true;
-    }else if( (ball->getPosY() - ball->getHeight() - 0.001f < -Scenes::winScale)
+    }else if( (ball->getPosY() - ball->getHeight() - ELEM_BUMP_SIZE < -Scenes::winScale)
                                         && isIn( -1.f, 0.f, cosf(ball->getRadian()) ) ){
         //Scenes::status = END;
         ball->setImpactDirect(0, BOTTOM);
         res = true;
     }
     
-    if( (ball->getPosX() + ball->getWidth() + 0.001f > 1.f)
+    if( (ball->getPosX() + ball->getWidth() + ELEM_BUMP_SIZE > 1.f)
                                         && isIn( 0.f, 1.f, sinf(ball->getRadian()) ) ){
         ball->setImpactDirect(1, RIGHT);
         res = true;
-    }else if( (ball->getPosX() - ball->getWidth() - 0.001f < -1.f)
+    }else if( (ball->getPosX() - ball->getWidth() - ELEM_BUMP_SIZE < -1.f)
                                         && isIn( -1.f, 0.f, sinf(ball->getRadian()) ) ){
         ball->setImpactDirect(1, LEFT);
         res = true;
@@ -79,7 +154,7 @@ void GamePlaying:: impact(){
     
     if (Scenes::status == START) {
         
-        if(isHitWall()){
+        if(isHitWall(ball) || isHitBoard(ball)){
             ball->rebound();
             std::cout << "impact" << std::endl;
         }
@@ -103,8 +178,6 @@ void GamePlaying:: render(){
 }
 
 void GamePlaying:: keyboardInput(GLint key, GLint action){
-    
-    
     
     GLfloat dist = ELEM_SHIFT_DIST * board->getVelocity();
     
@@ -167,6 +240,6 @@ void GamePlaying:: keyboardInput(GLint key, GLint action){
     }
     
 
-    std::cout<<"Game Status: "<<Scenes::status<<std::endl;
+    //std::cout<<"Game Status: "<<Scenes::status<<std::endl;
     
 }

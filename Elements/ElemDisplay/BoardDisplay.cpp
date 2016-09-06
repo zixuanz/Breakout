@@ -15,14 +15,14 @@ BoardDisplay:: BoardDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp
 
 void BoardDisplay:: prepVertices(){
     
-    vertices[0] = -getWidth();
-    vertices[1] = -getHeight();
-    vertices[2] = -getWidth();
-    vertices[3] = getHeight();
-    vertices[4] = getWidth();
-    vertices[5] = getHeight();
-    vertices[6] = getWidth();
-    vertices[7] = -getHeight();
+    vertices[0].x = -getWidth();
+    vertices[0].y = -getHeight();
+    vertices[1].x = -getWidth();
+    vertices[1].y = getHeight();
+    vertices[2].x = getWidth();
+    vertices[2].y = getHeight();
+    vertices[3].x = getWidth();
+    vertices[3].y = -getHeight();
     
 }
 
@@ -48,8 +48,6 @@ void BoardDisplay:: prepDataArray(){
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLfloat) * 6, index, GL_DYNAMIC_DRAW);
-    
-
     
     
     /*

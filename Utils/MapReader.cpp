@@ -8,7 +8,7 @@
 
 #include "MapReader.hpp"
 
-MapReader:: MapReader(const char * path)
+MapReader:: MapReader(const GLchar * path)
 {
     XMLError xmlRes = map.LoadFile(path);
     if (xmlRes != XML_SUCCESS)
@@ -21,7 +21,7 @@ MapReader:: MapReader(const char * path)
 }
 
 //get stage and num element
-void MapReader:: setCurrMap(int stage, int num)
+void MapReader:: setCurrMap(GLint stage, GLint num)
 {
     setCurrStage(stage);
     setCurrNum(num);
@@ -36,7 +36,7 @@ void MapReader:: setCurrMap(int stage, int num)
     currMap.pattern = currNum->Value();
 }
 
-void MapReader:: setCurrStage(int stage)
+void MapReader:: setCurrStage(GLint stage)
 {
     if (root == nullptr) {
         std::cout << "ERROR: Failed to read data. Data is wrong. "<< std::endl;
@@ -51,7 +51,7 @@ void MapReader:: setCurrStage(int stage)
     }
 }
 
-void MapReader:: setCurrNum(int num)
+void MapReader:: setCurrNum(GLint num)
 {
     if (currStage == NULL) {
         std::cout << "ERROR: Failed to read data. Data is wrong. "<< std::endl;

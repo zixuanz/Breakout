@@ -30,6 +30,8 @@ const GLfloat ELEM_BALL_VELOCITY    = 1;
 const GLfloat ELEM_BALL_SPRING      = 0.67;
 
 const GLfloat ELEM_SHIFT_DIST       = 0.05f;
+const GLfloat ELEM_BUMP_SIZE        = 0.001f;           //the bump for collision
+const GLfloat ELEM_ACCELERATION     = 2.f;              //when board hit on the surface of borad, giving an acceleration
 
 enum Shape{
     

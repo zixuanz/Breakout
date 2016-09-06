@@ -48,3 +48,7 @@ void GameElem:: updatePos(GLfloat x, GLfloat y){
     pos.x = x;
     pos.y = y;
 }
+
+void GameElem:: updatePos(glm::vec2 pos){
+    this->pos += pos;
+}

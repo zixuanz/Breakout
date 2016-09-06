@@ -43,18 +43,19 @@ void BallDisplay:: randomRadian(){
     //GLfloat temp = ((float) rand()) / (float) RAND_MAX * 0.5 * M_PI * neg[(rand() % 2)];
     GLfloat temp = -1 * M_PI / 4;
     this->setRadian(temp);
+    std::cout<< temp <<std::endl;
 }
 
 void BallDisplay:: prepVertices(){
     
-    vertices[0] = -getWidth();
-    vertices[1] = -getHeight();
-    vertices[2] = -getWidth();
-    vertices[3] = getHeight();
-    vertices[4] = getWidth();
-    vertices[5] = getHeight();
-    vertices[6] = getWidth();
-    vertices[7] = -getHeight();
+    vertices[0].x = -getWidth();
+    vertices[0].y = -getHeight();
+    vertices[1].x = -getWidth();
+    vertices[1].y = getHeight();
+    vertices[2].x = getWidth();
+    vertices[2].y = getHeight();
+    vertices[3].x = getWidth();
+    vertices[3].y = -getHeight();
     
 }
 
@@ -109,6 +110,7 @@ void BallDisplay:: render(glm::mat4 view){
     
 }
 
+/*
 void BallDisplay:: move(GLdouble duration){
     
     GLfloat xDist = velocity * sinf(radian) * duration;
@@ -118,14 +120,56 @@ void BallDisplay:: move(GLdouble duration){
     
     updatePos(getPosX()+xDist, getPosY() + yDist);
     
+    //std::cout<< "Ball Radian: " << radian << "; Ball pos:" << pos.x << " " << pos.y << std::endl;
+    
+}
+ */
+
+void BallDisplay:: move(GLdouble duration){
+    GLfloat xDist = velocity * sinf(radian) * duration;
+    GLfloat yDist = velocity * cosf(radian) * duration - 0.5 * 9.8 * duration * duration;
+
+    
+    model = glm::translate(model, glm::vec3(xDist, yDist, 0.f));
+    updatePos(getPosX()+xDist, getPosY() + yDist);
+    //model = glm::rotate(model, (GLfloat)(5.f * duration), glm::vec3(pos, 1));
+    
+    
     std::cout<< "Ball Radian: " << radian << "; Ball pos:" << pos.x << " " << pos.y << std::endl;
     
 }
 
 
+void BallDisplay:: updateVelocity(GLdouble duration){
+
+    GLfloat tempVelocity = glm::length( glm::vec2(0, velocity * cosf(radian) - 9.8 * duration)
+                                       + glm::vec2(velocity * sinf(radian), 0) );
+    GLfloat tempRadian = acosf((GLfloat)velocity * sinf(radian) / (GLfloat)tempVelocity);
+    
+    setRadian(tempRadian);
+    setVelocity(tempVelocity);
+ 
+    
+}
+
+
+/* try to simplify it but not easy for first one
 void BallDisplay:: rebound(){
     
-    if (impactDirect[0] == TOP || impactDirect[0] == BOTTOM) {
+    radian = impactDirect[0] != 0 ? (sinf(radian) * M_PI - radian): radian;
+    
+    radian *= impactDirect[1] != 0 ? (-1) : 1;
+    
+    impactDirect[0] = 0;
+    impactDirect[1] = 0;
+}
+*/
+
+
+
+void BallDisplay:: rebound(){
+    
+    if (impactDirect[0] != 0) {
         if(radian <= 0){
             radian = -(M_PI + radian);
         }else{
@@ -133,7 +177,7 @@ void BallDisplay:: rebound(){
         }
     }
     
-    if (impactDirect[1] == LEFT || impactDirect[1] == RIGHT) {
+    if (impactDirect[1] != 0) {
         radian *= -1;
     }
     std::cout << "impact direction:" << impactDirect[0] << " " << impactDirect[1] << std::endl;
@@ -141,6 +185,8 @@ void BallDisplay:: rebound(){
     impactDirect[1] = 0;
     
 }
+
+
 
 /*
 void BallDisplay:: move(GLfloat radian, GLdouble duration, GLint direction){

@@ -11,7 +11,11 @@
 
 #include <iostream>
 
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 #include "tinyxml2.h"
+
 
 using namespace tinyxml2;
 
@@ -26,22 +30,22 @@ private:
     
 public:
     struct info {
-        int stage;
-        int num;
-        const char *stageName;
-        const char *numName;
-        int types;
-        int row;
-        int col;
-        const char* pattern;
+        GLint stage;
+        GLint num;
+        const GLchar *stageName;
+        const GLchar *numName;
+        GLint types;
+        GLint row;
+        GLint col;
+        const GLchar* pattern;
     } currMap;
     
-    MapReader(const char * path);
+    MapReader(const GLchar * path);
     
     //get stage and num element
-    void setCurrMap(int stage, int num);
-    void setCurrStage(int stage);
-    void setCurrNum(int num);
+    void setCurrMap(GLint stage, GLint num);
+    void setCurrStage(GLint stage);
+    void setCurrNum(GLint num);
 };
 
 #endif /* MapReader_hpp */

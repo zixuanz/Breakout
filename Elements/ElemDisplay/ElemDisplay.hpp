@@ -19,7 +19,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.hpp"
-
+#include "Tools.hpp"
 
 class ElemDisplay{
     
@@ -34,10 +34,10 @@ protected:
     GLuint EBO;
     
     //vertex info
-    GLfloat vertices[8];
-    GLfloat colorVert[12];
-    GLfloat textureVert[8];
-    GLfloat normalVert[12];
+    glm::vec2 vertices[4];
+    glm::vec2 colorVert[6];
+    glm::vec2 textureVert[4];
+    glm::vec2 normalVert[6];
     
     //the index for quard
     GLint index[6] = {
@@ -51,28 +51,29 @@ protected:
     //view in window
     glm::mat4 model = glm::mat4(1);
     
+    //prepare buffers for sending data
+    virtual void prepVertices() = 0;
+    virtual void prepcolorVert();
+    virtual void preptextureVert();
+    virtual void prepDataArray() = 0;
+    
+    //prepare for render
+    virtual void prepRender() = 0;
+    
 public:
     
     //encapsulation for neccessary
     
     virtual void reset() = 0;
     
-    GLfloat* getVertices();
+    glm::vec2* getVertices();
     GLint* getIndex();
     glm::mat4 getModel();
     
     //get input methods
     //void updateKeyboard(int key, int action);
     
-    //prepare buffers for sending data
-    virtual void prepVertices() = 0;
-    virtual void prepcolorVert();
-    virtual void preptextureVert();
     
-    virtual void prepDataArray() = 0;
-    
-    //prepare for render
-    virtual void prepRender() = 0;
     
     //render
     virtual void render(glm::mat4 view) = 0;

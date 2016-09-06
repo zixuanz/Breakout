@@ -12,34 +12,46 @@
 #include "Brick.hpp"
 #include "ElemDisplay.hpp"
 
+
 class BricksDisplay: public Brick, public ElemDisplay{
     
 private:
     GLint row = 0;
     GLint col = 0;
+    const GLchar* pattern;
+    
     glm::vec2 *offset;
-    Brick *bricks;
+    Brick **bricks;
     
     GLuint offsetBuffer;
+    
+    GLint *surroudings;          //indices to record the bricks which is outside of the bricks
+    
+    void applyPattern();
+    void applySurroudings(GLint index, GLboolean pos);
+    
+protected:
+    //prepare buffers for sending data
+    void prepVertices();
+    void prepOffset();
+    void prepTextureVert();
+    void prepDataArray();
+    void prepModel();
+    
+    //prepare for render
+    void prepRender();
 
     
 public:
     
-    BricksDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp, GLint row, GLint col);
+    BricksDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp, GLint row, GLint col, const GLchar* pattern);
     
     void reset();
     
     //prepare for bricks
     void setBricks();
     
-    //prepare buffers for sending data
-    void prepVertices();
-    void prepOffset();
-    void prepTextureVert();
-    void prepDataArray();
-    
-    //prepare for render
-    void prepRender();
+    void negExisted(GLint index);
     
     //render
     void render(glm::mat4 view);

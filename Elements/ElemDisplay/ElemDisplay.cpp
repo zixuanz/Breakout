@@ -8,7 +8,7 @@
 
 #include "ElemDisplay.hpp"
 
-GLfloat* ElemDisplay:: getVertices(){
+glm::vec2* ElemDisplay:: getVertices(){
     return vertices;
 }
 

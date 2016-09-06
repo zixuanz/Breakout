@@ -4,8 +4,8 @@
         <shape>11</shape>
         <num no="1">
             <name>NUM1</name>
-            <bricks row="2" col="2">
-                0120
+            <bricks row="3" col="3">
+                102121101
             </bricks>
         </num>
     </stage>

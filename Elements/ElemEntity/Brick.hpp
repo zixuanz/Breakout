@@ -28,7 +28,10 @@ public:
     
     //decide what kind of bonus this brick will contain
     void setSkill(GLint total);
-    int getSkill();
+    GLint getSkill();
+        
+    void setExist(GLboolean exist);
+    GLboolean getExist();
     
     //brick property
     

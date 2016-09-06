@@ -28,7 +28,9 @@ GamePlaying *game;
 
 //function signitures
 static void error_callback(int error, const char* description);
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
+
 
 int main(int argc, const char * argv[]) {
     
@@ -69,6 +71,7 @@ int main(int argc, const char * argv[]) {
     
     //events callback set
     glfwSetKeyCallback(window, key_callback);
+    //glfwSetCursorPosCallback(window, cursor_position_callback);
     
     Scenes::setWinSize(MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT);
     game = new GamePlaying(1, 1, 1);
@@ -102,11 +105,16 @@ static void error_callback(int error, const char* description)
     fputs(description, stderr);
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     //exit game
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
     
     game->keyboardInput(key, action);
+}
+
+static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    
 }

@@ -13,13 +13,8 @@
 #include "ElemDisplay.hpp"
 
 class BoardDisplay: public Board, public ElemDisplay{
-
-public:
     
-    BoardDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp);
-    
-    void reset();
-    
+protected:
     //prepare buffers for sending data
     void prepVertices();
     void prepTextureVert();
@@ -28,11 +23,15 @@ public:
     //prepare for render
     void prepRender();
     
-    //render
-    void render(glm::mat4 view);
+public:
     
-    //shift board
-    void shiftBoard(GLfloat bump, GLfloat dist);
+    BoardDisplay(const GLchar *vp, const GLchar *fp, const GLchar *gp);
+    
+    void reset();
+
+    void render(glm::mat4 view);                            //render
+    
+    void shiftBoard(GLfloat bump, GLfloat dist);            //shift board
 
 };
 

@@ -9,6 +9,8 @@
 #ifndef DefGameValue_h
 #define DefGameValue_h
 
+
+
 enum Status{
     INIT,
     MENU,

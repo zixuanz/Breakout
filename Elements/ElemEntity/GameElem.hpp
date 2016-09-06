@@ -45,7 +45,7 @@ public:
     
     //update the position of element
     void updatePos(GLfloat x, GLfloat y);
-    
+    void updatePos(glm::vec2 pos);
     
     
     

@@ -17,6 +17,7 @@ Brick::Brick()
 void Brick:: reset(){
     this->setWidth(ELEM_BRICK_WIDTH);
     this->setHeight(ELEM_BRICK_HEIGHT);
+    this->setExist(true);
 }
 
 /*
@@ -60,6 +61,14 @@ void Brick:: setSkill(int total)
 int Brick:: getSkill()
 {
     return skill;
+}
+
+void Brick:: setExist(GLboolean exist){
+    this->exist = exist;
+}
+
+GLboolean Brick:: getExist(){
+    return this->exist;
 }
 
 
